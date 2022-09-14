@@ -1,0 +1,33 @@
+//Colors
+$colorBlue: #2471A3;
+$colorLightBlue: rgb(162,202,223);
+$colorDarkBlue: rgb(042,046,075);
+$colorLightRed: #F67280;
+$colorRed: #F75D59;
+$colorLightGreen: #ABEBC6 ;
+$colorGreen: #58D68D;
+$black: black;
+$white: whitesmoke;
+
+//Fonts
+@import url('https://fonts.googleapis.com/css2?family=Almendra+SC&family=Roboto&display=swap');
+$mainFont: 'Roboto', sans-serif;
+$secondaryFont: 'Almendra SC', serif;
+$sizeLetra:(
+    principal: 2.5rem,
+    secundario: 1.8rem,
+    btn: 1.5rem,
+    texto: 1.2rem,
+);
+
+//Botones
+@mixin bot($bc, $b, $w){
+    background-color: $bc;
+	border-radius: 5px;
+	border: $b 1px groove;
+	font-size: map-get($sizeLetra, btn);
+	font-family: $mainFont;
+    font-weight: bold;
+	width: $w; 
+	height: 50px;    
+}

@@ -1,0 +1,24 @@
+*{
+    font-family: $mainFont;
+}
+
+.btn{
+    @include bot($colorLightBlue, $colorDarkBlue, 250px);
+    &:hover{
+        background-color: $colorBlue;
+    }
+}
+
+.btn_cargar{
+    @include bot($colorLightGreen, $colorDarkBlue, 250px);
+    &:hover{
+        background-color: $colorGreen;
+    }
+}
+
+.btn_eliminar{
+    @include bot($colorLightRed, $colorDarkBlue, 250px);
+    &:hover{
+        background-color: $colorRed;
+    }
+}

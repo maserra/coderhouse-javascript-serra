@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Almendra+SC&family=Roboto&display=swap");
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+.btn {
+  background-color: rgb(162, 202, 223);
+  border-radius: 5px;
+  border: rgb(42, 46, 75) 1px groove;
+  font-size: 1.5rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  width: 250px;
+  height: 50px;
+}
+.btn:hover {
+  background-color: #2471A3;
+}
+
+.btn_cargar {
+  background-color: #ABEBC6;
+  border-radius: 5px;
+  border: rgb(42, 46, 75) 1px groove;
+  font-size: 1.5rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  width: 250px;
+  height: 50px;
+}
+.btn_cargar:hover {
+  background-color: #58D68D;
+}
+
+.btn_eliminar {
+  background-color: #F67280;
+  border-radius: 5px;
+  border: rgb(42, 46, 75) 1px groove;
+  font-size: 1.5rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  width: 250px;
+  height: 50px;
+}
+.btn_eliminar:hover {
+  background-color: #F75D59;
+}/*# sourceMappingURL=style.css.map */
