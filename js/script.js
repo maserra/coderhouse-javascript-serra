@@ -17,6 +17,20 @@ let div_gastos = document.getElementById("gastos")
 let div_inv = document.getElementById("inv")
 let div_resultado = document.getElementById("resultado")
 
+let btn_cargar_ingreso = document.getElementById("btn_ci")
+let btn_eliminar_ingreso = document.getElementById("btn_ei")
+let btn_cargar_gasto = document.getElementById("btn_cg")
+let btn_eliminar_gasto = document.getElementById("btn_eg")
+let btn_cambiar_inv = document.getElementById("btn_inv")
+let btn_calcular_resultado = document.getElementById("btn_cal")
+
+btn_cargar_ingreso.onclick = cargar_ingreso
+btn_eliminar_ingreso.onclick = eliminar_ingreso
+btn_cargar_gasto.onclick = cargar_gasto
+btn_eliminar_gasto.onclick = eliminar_gasto
+btn_cambiar_inv.onclick = cambiar_inv
+btn_calcular_resultado.onclick = calcular
+
 // 1) Cargar ingreso
 function cargar_ingreso(){
     let nuevo_ingreso = parseInt(prompt("Cargar nuevo ingreso"))
