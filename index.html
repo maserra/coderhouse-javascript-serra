@@ -5,36 +5,84 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Presupuesto Personal</title>
+	<link rel="shortcut icon" href="images/calculator.png">
+	<!-- CSS Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+	<!-- CSS Style -->
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<h1>Finanzas personales</h1>
-	<h2>Ingresos</h2>
-	<form>
-	    <input type="button" class="btn_cargar" id="btn_ci" value="Cargar ingreso"/>
-	</form>
-	<form>
-	    <input type="button" class="btn_eliminar" id="btn_ei" value="Eliminar ingreso"/>
-	</form>
-	<div id="ingresos">	</div>
-	<h2>Gastos</h2>
-	<form>
-	    <input type="button" class="btn_cargar" id="btn_cg" value="Cargar gasto"/>
-	</form>
-	<form>
-	    <input type="button" class="btn_eliminar" id="btn_eg" value="Eliminar gasto"/>
-	</form>
-	<div id="gastos">	</div>
-	<h2>Inversión</h2>
-	<form>
-	    <input type="button" class="btn" id="btn_inv" value="Cambiar inversión"/>
-	</form>
-	<div id="inv">	</div>
-	<h2>Resultado</h2>
-	<form>
-	    <input type="button" class="btn" id="btn_cal" value="Calcular resultado"/>
-	</form>
-	<div id="resultado">	</div>
+	<header>
+		<h1>Finanzas personales</h1>
+	</header>
+	<main>
+		<h2>Ingresos</h2>
+		<input type="button" class="btn_cargar" id="btn_mi" value="Cargar ingreso"/>
+		<input type="button" class="btn_eliminar" id="btn_ei" value="Eliminar ingreso"/>
+		<div id="ingresos"></div>
+		<h2>Gastos</h2>
+		<input type="button" class="btn_cargar" id="btn_mg" value="Cargar gasto"/>
+		<input type="button" class="btn_eliminar" id="btn_eg" value="Eliminar gasto"/>
+		<div id="gastos"></div>
+		<h2>Inversión</h2>
+		<input type="button" class="btn" id="btn_inv" value="Cambiar inversión"/>
+		<div id="inv"></div>
+		<h2>Resultado</h2>
+		<input type="button" class="btn" id="btn_cal" value="Calcular resultado"/>
+		<div id="resultado"></div>
+		<!-- Carga de datos -->
+		<!-- Ingresos -->
+		<div class="toast-container position-fixed bottom-50 end-50 p-3 carga-ingreso">
+			<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+			  <div class="toast-header">
+				<strong class="me-auto">Ingreso</strong>
+				<small>Salir</small>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+			  </div>
+			  <div class="toast-body">
+				<label id="monto-label-ingreso" for="monto-ingreso">Monto</label>
+				<input id="monto-ingreso" type="number" placeholder=1000>
+				<label id="fecha-label-ingreso" for="fecha-ingreso">fecha</label>
+				<input id="fecha-ingreso" type="date">
+				<label id="tipo-label-ingreso" for="tipo-ingreso">Categoría</label>
+				<select id="tipo-ingreso" name="opciones">
+					<option value="sueldo">Sueldo</option>
+					<option value="venta">Venta</option>
+					<option value="otro">Otro</option>
+				</select>
+				<input type="button" class="btn_cargar" id="btn_ci" value="Cargar ingreso"/>
+			  </div>
+			</div>
+		  </div>
+		<!-- Gastos -->
+		<div class="toast-container position-fixed bottom-50 end-50 p-3 carga-gasto">
+			<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+			  <div class="toast-header">
+				<strong class="me-auto">Gasto</strong>
+				<small>Salir</small>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+			  </div>
+			  <div class="toast-body">
+				<label id="monto-label-gasto" for="monto-gasto">Monto</label>
+				<input id="monto-gasto" type="number" placeholder=1000>
+				<label id="fecha-label-gasto" for="fecha-gasto">fecha</label>
+				<input id="fecha-gasto" type="date">
+				<label id="tipo-label-gasto" for="tipo-gasto">Categoría</label>
+				<select id="tipo-gasto" name="opciones">
+					<option value="sueldo">Alquiler</option>
+					<option value="venta">Comida</option>
+					<option value="otro">Otro</option>
+				</select>
+				<input type="button" class="btn_cargar" id="btn_cg" value="Cargar gasto"/>
+			  </div>
+			</div>
+		  </div>
+	</main>
+	<footer>
+	</footer>
+	<!-- JavaScript Bootstrap -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+	<!-- JavaScript Script -->
 	<script src="js/script.js"></script>
 </body>
 </html>

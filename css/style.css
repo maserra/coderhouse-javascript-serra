@@ -1,6 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Almendra+SC&family=Roboto&display=swap");
 * {
   font-family: "Roboto", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+header, footer, main {
+  padding: 20px;
 }
 
 .btn {
@@ -43,4 +49,12 @@
 }
 .btn_eliminar:hover {
   background-color: #F75D59;
+}
+
+.toast-container {
+  display: none;
+}
+
+.toast:not(.show) {
+  display: block;
 }/*# sourceMappingURL=style.css.map */

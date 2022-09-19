@@ -1,0 +1,6 @@
+.toast-container{
+    display: none;
+}
+.toast:not(.show) {
+    display: block;
+}
