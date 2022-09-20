@@ -37,31 +37,36 @@ let btn_cambiar_inv = document.getElementById("btn_inv")
 let btn_calcular_resultado = document.getElementById("btn_cal")
 
 // Funciones de los botones
-btn_mostrar_ingreso.onclick = () => mostrar_ingreso()
-btn_mostrar_gasto.onclick = () => mostrar_gasto()
-btn_cargar_ingreso.onclick = () => cargar_ingreso()
+btn_mostrar_ingreso.onclick = (k) => mostrar("mi")
+btn_mostrar_gasto.onclick = (k) => mostrar("mg")
+btn_cargar_ingreso.onclick = (k) => cargar("ingreso")
 btn_eliminar_ingreso.onclick = () => eliminar_ingreso()
-btn_cargar_gasto.onclick = () => cargar_gasto()
+btn_cargar_gasto.onclick = (k) => cargar("gasto")
 btn_eliminar_gasto.onclick = () => eliminar_gasto()
 btn_cambiar_inv.onclick = () => cambiar_inv()
 btn_calcular_resultado.onclick = () => calcular()
 
-// 1) Cargar ingreso
-function cargar_ingreso(){
-    let monto = parseInt(document.getElementById("monto-ingreso").value)
-    let fecha = document.getElementById("fecha-ingreso").value
-    let tipo = document.getElementById("tipo-ingreso").value
-    let signo = "ingreso" 
-    let nuevo_ingreso = new item (monto, tipo, fecha, signo)
-    ingresos.push(nuevo_ingreso)
-    document.getElementById("tipo-ingreso").value = ""
-    document.getElementById("fecha-ingreso").value = ""
-    document.getElementById("monto-ingreso").value = ""
-    div_ingresos.innerText = f_ingresos("ver")
+// Cargar
+function cargar(k){
+    let monto = parseInt(document.getElementById("monto-"+k).value)
+    let fecha = document.getElementById("fecha-"+k).value
+    let tipo = document.getElementById("tipo-"+k).value
+    let signo = k 
+    let nuevo = new item (monto, tipo, fecha, signo)
+    if(k=="ingreso"){
+        ingresos.push(nuevo)
+        div_ingresos.innerText = f_ingresos("ver")
+    }else{
+        gastos.push(nuevo)
+        div_gastos.innerText = f_gastos("ver")
+    }
+    document.getElementById("tipo-"+k).value = ""
+    document.getElementById("fecha-"+k).value = ""
+    document.getElementById("monto-"+k).value = ""
 }
 
-// 2) Eliminar ingreso
-function eliminar_ingreso(){
+// Eliminar
+function eliminar(k){
     eliminar = parseInt(prompt(f_ingresos("eliminar")))
     eliminar = eliminar-1
     if(eliminar >= 0 && eliminar < ingresos.length){
@@ -85,20 +90,6 @@ function f_ingresos(variable){
         texto_ingreso = texto_ingreso + "\n ¿Qué valor desea eliminar (escribir el número de la posición)"
         return texto_ingreso
     }
-}
-
-// 4) Cargar gasto
-function cargar_gasto(){
-    let monto = parseInt(document.getElementById("monto-gasto").value)
-    let fecha = document.getElementById("fecha-gasto").value
-    let tipo = document.getElementById("tipo-gasto").value
-    let signo = "gasto" 
-    let nuevo_gasto = new item (monto, tipo, fecha, signo)
-    gastos.push(nuevo_gasto)
-    document.getElementById("tipo-gasto").value = ""
-    document.getElementById("fecha-gasto").value = ""
-    document.getElementById("monto-gasto").value = ""
-    div_gastos.innerText = f_gastos("ver")
 }
 
 // 5) Eliminar gasto
@@ -160,11 +151,12 @@ let btn_close = document.getElementsByClassName("btn-close")
 let formulario_ingreso = document.getElementsByClassName("carga-ingreso")
 let formulario_gasto = document.getElementsByClassName("carga-gasto")
 
-function mostrar_ingreso(){
-    formulario_ingreso[0].style.display = "block"
-}
-function mostrar_gasto(){
-    formulario_gasto[0].style.display = "block"
+function mostrar(k){
+    if(k == "mi"){
+        formulario_ingreso[0].style.display = "block"
+    }else{
+        formulario_gasto[0].style.display = "block"
+    }
 }   
 
 function cerrar(){
