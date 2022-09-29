@@ -9,7 +9,19 @@ let inversion = 0
 let ingreso_total = 0
 let gasto_total = 0
 let variable = "-"
-let eliminar = 0
+let el = 0
+
+//localStorage.removeItem("ingreso")
+
+// Traer datos de Storage
+if(localStorage.getItem("ingreso") != null){
+    importar_datos(ingresos, "ingreso")
+    div_ingresos.innerText = f_ingresos("ver")
+}
+if(localStorage.getItem("gasto") != null){
+    importar_datos(gastos, "gastos")
+    div_gastos.innerText = f_gastos("ver")
+}
 
 // Clase
 class item {
@@ -18,6 +30,14 @@ class item {
         this.tipo = tipo;
         this.fecha = fecha;
         this.signo = signo;
+    }
+}
+class Item{
+    constructor(obj){
+        this.monto = obj.monto;
+        this.tipo = obj.tipo;
+        this.fecha = obj.fecha;
+        this.signo = obj.signo;
     }
 }
 
@@ -40,7 +60,7 @@ let btn_calcular_resultado = document.getElementById("btn_cal")
 btn_mostrar_ingreso.onclick = (k) => mostrar("mi")
 btn_mostrar_gasto.onclick = (k) => mostrar("mg")
 btn_cargar_ingreso.onclick = (k) => cargar("ingreso")
-btn_eliminar_ingreso.onclick = () => eliminar_ingreso()
+btn_eliminar_ingreso.onclick = (k) => eliminar("ingreso")
 btn_cargar_gasto.onclick = (k) => cargar("gasto")
 btn_eliminar_gasto.onclick = () => eliminar_gasto()
 btn_cambiar_inv.onclick = () => cambiar_inv()
@@ -55,9 +75,11 @@ function cargar(k){
     let nuevo = new item (monto, tipo, fecha, signo)
     if(k=="ingreso"){
         ingresos.push(nuevo)
+        guardar_datos(ingresos_storage, nuevo, "ingreso")
         div_ingresos.innerText = f_ingresos("ver")
     }else{
         gastos.push(nuevo)
+        guardar_datos(gastos_storage, nuevo, "gasto")
         div_gastos.innerText = f_gastos("ver")
     }
     document.getElementById("tipo-"+k).value = ""
@@ -67,13 +89,14 @@ function cargar(k){
 
 // Eliminar
 function eliminar(k){
-    eliminar = parseInt(prompt(f_ingresos("eliminar")))
-    eliminar = eliminar-1
-    if(eliminar >= 0 && eliminar < ingresos.length){
-        ingresos.splice(eliminar,1)
+    el = parseInt(prompt(f_ingresos("eliminar")))
+    el = el-1
+    if(el >= 0 && el < ingresos.length){
+        ingresos.splice(el,1)
+        eliminar_datos(ingresos_storage, el, "ingreso")
     }else{
         alert("Opción no válida. Intente de nuevo.")
-        eliminar_ingreso()
+        eliminar(k)
     }
     div_ingresos.innerText = f_ingresos("ver")
 }
@@ -94,10 +117,11 @@ function f_ingresos(variable){
 
 // 5) Eliminar gasto
 function eliminar_gasto(){
-    eliminar = parseInt(prompt(f_gastos("eliminar")))
-    eliminar = eliminar-1
-    if(eliminar >= 0 && eliminar < gastos.length){
-        gastos.splice(eliminar,1)
+    el = parseInt(prompt(f_gastos("eliminar")))
+    el = el-1
+    if(el >= 0 && el < gastos.length){
+        gastos.splice(el,1)
+        eliminar_datos(gastos_storage, el, "gasto")
     }else{
         alert("Opción no válida. Intente de nuevo.")
         eliminar_gasto()
@@ -122,6 +146,7 @@ function f_gastos(variable){
 // 7) Cambiar inversión
 function cambiar_inv(){
     inv = parseFloat(prompt("Cargar porcentaje de inversión (Número de 0 a 100)"))/100
+    localStorage.setItem("inv", inv)
     div_inv.innerText = ver_inv()
 }
 
@@ -166,3 +191,40 @@ function cerrar(){
 
 btn_close[0].onclick = () => cerrar()
 btn_close[1].onclick = () => cerrar()
+
+// Guardar y eliminar datos
+let ingresos_storage = []
+let gastos_storage = []
+function guardar_datos(lista, nuevo, tipo){
+    lista.push(JSON.stringify(nuevo))
+    lista.push("-")
+    localStorage.setItem(tipo, lista)
+}
+function eliminar_datos(lista, i, tipo){
+    lista.splice(i,1)
+    localStorage.setItem(tipo, lista)
+}
+function borrar_todo(tipo){
+    localStorage.removeItem(tipo)
+}
+function importar_datos(lista, tipo){
+    aux = localStorage.getItem(tipo)
+    aux_split2 = aux.split(",-")
+    aux_split = aux[0].split(",-,")
+    console.log(aux)
+    console.log(aux_split2)
+    console.log(typeof aux_split)
+    for(let objeto of aux_split){
+        console.log(objeto)
+        lista_aux = JSON.parse(objeto)
+        lista.push(lista_aux)
+        //lista.push(new item(lista_aux))
+    }
+    if(tipo = "ingreso"){
+        ingresos_storage = aux
+    }else{
+        gastos_storage = aux
+    }
+}
+
+
