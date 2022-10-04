@@ -1,0 +1,29 @@
+.btn_invertir{
+    @include bot($colorLightBlue, $colorDarkBlue, 90%);
+    &:hover{
+        background-color: $colorBlue;
+    }
+}
+
+.btn_resultado{
+    @extend .btn_invertir;
+}
+
+.btn_cargar{
+    @include bot($colorLightGreen, $colorDarkBlue, 90%);
+    &:hover{
+        background-color: $colorGreen;
+    }
+}
+
+.btn_eliminar{
+    @include bot($colorLightRed, $colorDarkBlue, 90%);
+    &:hover{
+        background-color: $colorRed;
+    }
+}
+
+.btn-delete{
+    background-color: $colorDelete;
+    border: 1px black solid;
+}

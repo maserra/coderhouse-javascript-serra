@@ -8,6 +8,7 @@ $colorLightGreen: #ABEBC6 ;
 $colorGreen: #58D68D;
 $black: black;
 $white: whitesmoke;
+$colorDelete: red;
 
 //Fonts
 @import url('https://fonts.googleapis.com/css2?family=Almendra+SC&family=Roboto&display=swap');
@@ -29,5 +30,6 @@ $sizeLetra:(
 	font-family: $mainFont;
     font-weight: bold;
 	width: $w; 
-	height: 50px;    
+	height: 50px;
+    margin: 0 (100%-$w)/2;  
 }

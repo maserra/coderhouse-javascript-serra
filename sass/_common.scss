@@ -16,23 +16,9 @@ footer{
     @extend header;
 }
 
-.btn{
-    @include bot($colorLightBlue, $colorDarkBlue, 250px);
-    &:hover{
-        background-color: $colorBlue;
-    }
-}
-
-.btn_cargar{
-    @include bot($colorLightGreen, $colorDarkBlue, 250px);
-    &:hover{
-        background-color: $colorGreen;
-    }
-}
-
-.btn_eliminar{
-    @include bot($colorLightRed, $colorDarkBlue, 250px);
-    &:hover{
-        background-color: $colorRed;
-    }
+.contenedor-presentar{
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    justify-content: space-around;
 }
