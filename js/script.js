@@ -17,11 +17,11 @@ localStorage.removeItem("gasto")
 // Traer datos de Storage
 if(localStorage.getItem("ingreso") != null){
     importar_datos(ingresos, "ingreso")
-    div_ingresos.innerText = f_ingresos("ver")
+    presentar(ingresos, div_ingresos, "ingreso")
 }
 if(localStorage.getItem("gasto") != null){
     importar_datos(gastos, "gastos")
-    div_gastos.innerText = f_gastos("ver")
+    presentar(gastos, div_gastos, "gastos")
 }
 
 // Clase
