@@ -25,11 +25,13 @@
 		<input type="button" class="btn_eliminar" id="btn_eg" value="Borrar todos los gastos"/>
 		<div id="gastos"></div>
 		<h2>Inversión</h2>
-		<input type="button" class="btn_invertir" id="btn_inv" value="Cambiar inversión"/>
+		<input type="button" class="btn_standard" id="btn_inv" value="Cambiar inversión"/>
 		<div id="inv"></div>
 		<h2>Resultado</h2>
-		<input type="button" class="btn_resultado" id="btn_res" value="Calcular resultado"/>
+		<input type="button" class="btn_standard" id="btn_res" value="Calcular resultado"/>
 		<div id="resultado"></div>
+		<h2> Comenzar de nuevo </h2>
+		<input type="button" class="btn_nuevo" id="btn_nue" value="Comenzar de nuevo"/>
 		<!-- Carga de datos -->
 		<!-- Ingresos -->
 		<div class="toast-container position-fixed bottom-50 end-xx p-3 carga-ingreso">
@@ -37,15 +39,15 @@
 			  <div class="toast-header">
 				<strong class="me-auto">Ingreso</strong>
 				<small>Salir</small>
-				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" id="btn-close-1"></button>
 			  </div>
 			  <div class="toast-body">
-				<label id="monto-label-ingreso" for="monto-ingreso">Monto</label>
-				<input id="monto-ingreso" type="number" placeholder=1000>
-				<label id="fecha-label-ingreso" for="fecha-ingreso">fecha</label>
-				<input id="fecha-ingreso" type="date">
-				<label id="tipo-label-ingreso" for="tipo-ingreso">Categoría</label>
-				<select id="tipo-ingreso" name="opciones">
+				<label id="monto-label-ingreso" for="monto-ing">Monto</label>
+				<input id="monto-ing" type="number" placeholder=1000>
+				<label id="fecha-label-ingreso" for="fecha-ing">fecha</label>
+				<input id="fecha-ing" type="date">
+				<label id="tipo-label-ingreso" for="tipo-ing">Categoría</label>
+				<select id="tipo-ing" name="opciones">
 					<option value="sueldo">Sueldo</option>
 					<option value="venta">Venta</option>
 					<option value="otro">Otro</option>
@@ -60,20 +62,35 @@
 			  <div class="toast-header">
 				<strong class="me-auto">Gasto</strong>
 				<small>Salir</small>
-				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" id="btn-close-2"></button>
 			  </div>
 			  <div class="toast-body">
-				<label id="monto-label-gasto" for="monto-gasto">Monto</label>
-				<input id="monto-gasto" type="number" placeholder=1000>
-				<label id="fecha-label-gasto" for="fecha-gasto">fecha</label>
-				<input id="fecha-gasto" type="date">
-				<label id="tipo-label-gasto" for="tipo-gasto">Categoría</label>
-				<select id="tipo-gasto" name="opciones">
+				<label id="monto-label-gasto" for="monto-gas">Monto</label>
+				<input id="monto-gas" type="number" placeholder=1000>
+				<label id="fecha-label-gasto" for="fecha-gas">fecha</label>
+				<input id="fecha-gas" type="date">
+				<label id="tipo-label-gasto" for="tipo-gas">Categoría</label>
+				<select id="tipo-gas" name="opciones">
 					<option value="sueldo">Alquiler</option>
 					<option value="venta">Comida</option>
 					<option value="otro">Otro</option>
 				</select>
 				<input type="button" class="btn_cargar" id="btn_cg" value="Cargar gasto"/>
+			  </div>
+			</div>
+		  </div>
+		  <!-- Inversión -->
+		  <div class="toast-container position-fixed bottom-50 end-xx p-3 carga-inversion">
+			<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+			  <div class="toast-header">
+				<strong class="me-auto">Inversión</strong>
+				<small>Salir</small>
+				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" id="btn-close-3"></button>
+			  </div>
+			  <div class="toast-body">
+				<label id="monto-label-inv" for="monto-inv">Cargar porcentaje de inversión (Número de 0 a 100)</label>
+				<input id="monto-inv" type="number" placeholder=50>
+				<input type="button" class="btn_cargar" id="btn_cinv" value="Cargar inversión"/>
 			  </div>
 			</div>
 		  </div>

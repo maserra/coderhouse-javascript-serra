@@ -4,3 +4,6 @@
 .toast:not(.show) {
     display: block;
 }
+.toast-body{
+    display: grid;
+}

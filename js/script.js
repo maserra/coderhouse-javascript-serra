@@ -1,28 +1,24 @@
 // Variables
 let ingresos = []
-let ingreso = []
 let gastos = []
-let gasto = []
 let inv = 0
 let resultado = 0
 let inversion = 0
 let ingreso_total = 0
 let gasto_total = 0
-let variable = "-"
-let el = 0
-
-localStorage.removeItem("ingreso")
-localStorage.removeItem("gasto")
+let n = 0
 
 // Traer datos de Storage
-if(localStorage.getItem("ingreso") != null){
-    importar_datos(ingresos, "ingreso")
-    presentar(ingresos, div_ingresos, "ingreso")
+for(let i=0; i<localStorage.length; i++) {
+    let clave = localStorage.key(i)
+    if(clave.substring(0,3) == "ing"){
+        importar_datos(ingresos, clave)
+    }else if(clave.substring(0,3) == "gas"){
+        importar_datos(gastos, clave)
+    }
 }
-if(localStorage.getItem("gasto") != null){
-    importar_datos(gastos, "gastos")
-    presentar(gastos, div_gastos, "gastos")
-}
+n = parseInt(localStorage.getItem("n"))
+inv = parseFloat(localStorage.getItem("inv"))
 
 // Clase
 class item {
@@ -31,14 +27,7 @@ class item {
         this.tipo = tipo;
         this.fecha = fecha;
         this.signo = signo;
-    }
-}
-class Item{
-    constructor(obj){
-        this.monto = obj.monto;
-        this.tipo = obj.tipo;
-        this.fecha = obj.fecha;
-        this.signo = obj.signo;
+        this.n = n;
     }
 }
 
@@ -54,83 +43,116 @@ let btn_cargar_ingreso = document.getElementById("btn_ci")
 let btn_eliminar_ingreso = document.getElementById("btn_ei")
 let btn_cargar_gasto = document.getElementById("btn_cg")
 let btn_eliminar_gasto = document.getElementById("btn_eg")
-let btn_cambiar_inv = document.getElementById("btn_inv")
+let btn_mostrar_inv = document.getElementById("btn_inv")
+let btn_cambiar_inv = document.getElementById("btn_cinv")
 let btn_calcular_resultado = document.getElementById("btn_res")
+let btn_comenzar_nuevo = document.getElementById("btn_nue")
+
+// Presentar el html
+for(i=0; i<ingresos.length; i++){
+    presentar(ingresos[i], div_ingresos, "ing")
+}
+for(i=0; i<gastos.length; i++){
+    presentar(gastos[i], div_gastos, "gas")
+}
+ver_inv()
+calcular()
 
 // Funciones de los botones
 btn_mostrar_ingreso.onclick = (formulario_k) => mostrar(formulario_ingreso)
 btn_mostrar_gasto.onclick = (k) => mostrar(formulario_gasto)
-btn_cargar_ingreso.onclick = (k, lista, k_storage, div_k) => cargar("ingreso", ingresos, ingresos_storage, div_ingresos)
-btn_cargar_gasto.onclick = (k, lista, k_storage, div_k) => cargar("gasto", gastos, gastos_storage, div_gastos)
-btn_eliminar_ingreso.onclick = (k, k_storage, lista, div_k) => borrar_todo("ingreso", ingresos_storage, ingresos, div_ingresos)
-btn_eliminar_gasto.onclick  = (k, k_storage, lista, div_k) => borrar_todo("gasto", gastos_storage, gastos, div_gastos)
+btn_cargar_ingreso.onclick = (k, lista, k_storage, div_k) => cargar("ing", ingresos, div_ingresos)
+btn_cargar_gasto.onclick = (k, lista, k_storage, div_k) => cargar("gas", gastos, div_gastos)
+btn_eliminar_ingreso.onclick = (k, k_storage, lista, div_k) => borrar_todo("ing", ingresos, div_ingresos)
+btn_eliminar_gasto.onclick  = (k, k_storage, lista, div_k) => borrar_todo("gas", gastos, div_gastos)
+btn_mostrar_inv.onclick = () => mostrar(formulario_inversion)
 btn_cambiar_inv.onclick = () => cambiar_inv()
 btn_calcular_resultado.onclick = () => calcular()
+btn_comenzar_nuevo.onclick = () => comenzar_nuevo()
 
 // Cargar
-function cargar(k, lista, k_storage, div_k){
+function cargar(k, lista, div_k){
     let monto = parseInt(document.getElementById("monto-"+k).value)
     let fecha = document.getElementById("fecha-"+k).value
     let tipo = document.getElementById("tipo-"+k).value || "Otro"
     let signo = k
-    let nuevo = new item (monto, tipo, fecha, signo)
+    n = n + 1;
+    let nuevo = new item (monto, tipo, fecha, signo, n)
     lista.push(nuevo)
-    guardar_datos(k_storage, nuevo, k)
-    presentar(lista, div_k, k)
+    clave = k + "-" + n
+    guardar_datos(nuevo, k, clave, n)
+    presentar(nuevo, div_k, k)
     document.getElementById("tipo-"+k).value = ""
     document.getElementById("fecha-"+k).value = ""
     document.getElementById("monto-"+k).value = ""
 }
 
+// Eliminar
+function eliminar(tipo, eliminado){
+    clave = tipo + "-" + eliminado
+    localStorage.removeItem(clave)
+    if(tipo == "ing"){
+        for(i=0; i<ingresos.length; i++){
+            if(eliminado == ingresos[i].n){
+                ingresos.splice(i,1)
+                let div_eliminar =  document.getElementById(clave)
+                div_ingresos.removeChild(div_eliminar)
+            }
+        }
+    }else{
+        console.log("a")
+        for(i=0; i<gastos.length; i++){
+            console.log(i)
+            if(eliminado == gastos[i].n){
+                console.log(gastos[i].n)
+                gastos.splice(i,1)
+                let div_eliminar =  document.getElementById(clave)
+                div_gastos.removeChild(div_eliminar)
+            }
+        }
+    }
+}
+
 // Borrar_todo
-function borrar_todo(k, k_storage, lista, div_k){
-    localStorage.removeItem(k)
-    k_storage = k_storage.splice(0, k_storage,length)
-    lista = lista.splice(0, lista.length)
+function borrar_todo(k, lista, div_k){
+    let j=0
+    for(i=0; i<localStorage.length+1; i++){
+        clave = localStorage.key(j)
+        if(clave!=null){
+            if(clave.substring(0,3) == k){
+                localStorage.removeItem(clave)
+            }else{
+                j++
+            }
+        }
+    }
+    lista.splice(0, lista.length)
     while (div_k.firstChild){
         div_k.removeChild(div_k.firstChild);
-}
+    }
 }
 
 // Presentar
-function presentar(lista, div_k, k){
-    while (div_k.firstChild){
-            div_k.removeChild(div_k.firstChild);
-    }
-    for(i = 0; i<lista.length; i++){
-        let contenedor = document.createElement("div")
-        let texto = (i+1) + ") " + lista[i].fecha + " (" + lista[i].tipo + ")" + " -> $" + lista[i].monto
-        contenedor.innerHTML = `<p> ${texto} <p> <button type="button" class="btn-close btn-delete" aria-label="Close" id=${k}-${i}></button>`
-        contenedor.id = `${k}-${i}`
-        contenedor.className = `contenedor-presentar`
-        div_k.append(contenedor)
-    }
+function presentar(nuevo, div_k, k){
+    let contenedor = document.createElement("div")
+    let texto = (nuevo.n) + ") " + nuevo.fecha + "(" + nuevo.tipo + ")" + " -> $" + nuevo.monto
+    contenedor.innerHTML = `<p> ${texto} </p> <button type="button" class="btn-close btn-delete" aria-label="Close" id="bot-"${k}-${nuevo.n} onclick="eliminar('${k}',${nuevo.n})"></button>`
+    contenedor.id = `${k}-${nuevo.n}`
+    contenedor.className = `contenedor-presentar`
+    div_k.append(contenedor)
 }
-
-// Eliminar
-/* function eliminar_gasto(){
-    el = parseInt(prompt(f_gastos("eliminar")))
-    el = el-1
-    if(el >= 0 && el < gastos.length){
-        gastos.splice(el,1)
-        eliminar_datos(gastos_storage, el, "gasto")
-    }else{
-        alert("Opción no válida. Intente de nuevo.")
-        eliminar_gasto()
-    }
-    div_gastos.innerText = f_gastos("ver")
-} */
 
 // Cambiar inversión
 function cambiar_inv(){
-    inv = parseFloat(prompt("Cargar porcentaje de inversión (Número de 0 a 100)"))/100
+    inv = parseInt(document.getElementById("monto-inv").value)/100
     localStorage.setItem("inv", inv)
-    div_inv.innerText = ver_inv()
+    ver_inv()
+    formulario_inversion[0].style.display = "none"
 }
 
 // Ver porcentaje de inversión
 function ver_inv(){
-    return "El porcentaje de inversión es: " + inv*100 + "%"
+    div_inv.innerText = "El porcentaje de inversión es: " + inv*100 + "%"
 }
 
 // Calcular resultado
@@ -150,9 +172,12 @@ function calcular(){
 }
 
 // Carga de datos
-let btn_close = document.getElementsByClassName("btn-close")
+let btn_close_1 = document.getElementById("btn-close-1") 
+let btn_close_2 = document.getElementById("btn-close-2")
+let btn_close_3 = document.getElementById("btn-close-3")
 let formulario_ingreso = document.getElementsByClassName("carga-ingreso")
 let formulario_gasto = document.getElementsByClassName("carga-gasto")
+let formulario_inversion = document.getElementsByClassName("carga-inversion")
 
 function mostrar(formulario_k){
     formulario_k[0].style.display = "block"
@@ -161,41 +186,39 @@ function mostrar(formulario_k){
 function cerrar(){
     formulario_ingreso[0].style.display = "none"
     formulario_gasto[0].style.display = "none"
+    formulario_inversion[0].style.display = "none"
 }
 
-btn_close[0].onclick = () => cerrar()
-btn_close[1].onclick = () => cerrar()
+btn_close_1.onclick = () => cerrar()
+btn_close_2.onclick = () => cerrar()
+btn_close_3.onclick = () => cerrar()
 
 // Guardar y eliminar datos del storage 
-let ingresos_storage = []
-let gastos_storage = []
-function guardar_datos(lista, nuevo, tipo){
-    lista.push(JSON.stringify(nuevo))
-    lista.push("-")
-    localStorage.setItem(tipo, lista)
+function guardar_datos(nuevo, tipo, clave, n){
+    localStorage.setItem("n", n)
+    let nuevo_json = JSON.stringify(nuevo)
+    clave = tipo + "-" + n
+    localStorage.setItem(clave, nuevo_json)
 }
-function eliminar_datos(lista, i, tipo){
-    lista.splice(i,1)
-    localStorage.setItem(tipo, lista)
-}
-function importar_datos(lista, tipo){
-    aux = localStorage.getItem(tipo)
-    aux_split2 = aux.split(",-")
-    aux_split = aux[0].split(",-,")
-    console.log(aux)
-    console.log(aux_split2)
-    console.log(typeof aux_split)
-    for(let objeto of aux_split){
-        console.log(objeto)
-        lista_aux = JSON.parse(objeto)
-        lista.push(lista_aux)
-        //lista.push(new item(lista_aux))
-    }
-    if(tipo = "ingreso"){
-        ingresos_storage = aux
+function importar_datos(lista, clave){
+    aux = localStorage.getItem(clave)
+    json_aux = JSON.parse(aux)
+    if(lista == ingresos){
+        lista.unshift(json_aux)
     }else{
-        gastos_storage = aux
+        lista.push(json_aux)
     }
+    
 }
 
-
+// Comenzar de nuevo
+function comenzar_nuevo(){
+    localStorage.setItem("n", 0)
+    borrar_todo("ing", ingresos, div_ingresos)
+    borrar_todo("gas", gastos, div_gastos)
+    localStorage.setItem("inv", 0)
+    n = 0
+    inv = 0
+    ver_inv()
+    calcular()
+}

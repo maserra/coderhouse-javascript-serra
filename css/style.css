@@ -7,6 +7,11 @@
 
 header, footer, main {
   padding: 20px;
+  background-color: rgb(162, 202, 223);
+}
+
+main {
+  background-color: whitesmoke;
 }
 
 .contenedor-presentar {
@@ -24,7 +29,11 @@ header, footer, main {
   display: block;
 }
 
-.btn_invertir, .btn_resultado {
+.toast-body {
+  display: grid;
+}
+
+.btn_standard {
   background-color: rgb(162, 202, 223);
   border-radius: 5px;
   border: rgb(42, 46, 75) 1px groove;
@@ -35,8 +44,33 @@ header, footer, main {
   height: 50px;
   margin: 0 5%;
 }
-.btn_invertir:hover, .btn_resultado:hover {
+.btn_standard:hover {
   background-color: #2471A3;
+}
+
+.btn_nuevo {
+  background-color: black;
+  border-radius: 5px;
+  border: black 1px groove;
+  font-size: 1.5rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  width: 90%;
+  height: 50px;
+  margin: 0 5%;
+  color: whitesmoke;
+}
+.btn_nuevo:hover {
+  background-color: whitesmoke;
+  border-radius: 5px;
+  border: black 1px groove;
+  font-size: 1.5rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  width: 90%;
+  height: 50px;
+  margin: 0 5%;
+  color: black;
 }
 
 .btn_cargar {

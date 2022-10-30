@@ -1,12 +1,18 @@
-.btn_invertir{
+.btn_standard{
     @include bot($colorLightBlue, $colorDarkBlue, 90%);
     &:hover{
         background-color: $colorBlue;
     }
 }
 
-.btn_resultado{
-    @extend .btn_invertir;
+.btn_nuevo{
+    @include bot($black, $black, 90%);
+    color: $white;
+    &:hover{
+        @include bot($white, $black, 90%);
+        color: $black;
+    }
+
 }
 
 .btn_cargar{
