@@ -1,12 +1,12 @@
 // Variables
 let ingresos = []
 let gastos = []
-let inv = 0
+let inv = (parseInt(localStorage.getItem("n") ?? 0))
 let resultado = 0
 let inversion = 0
 let ingreso_total = 0
 let gasto_total = 0
-let n = 0
+let n = (parseFloat(localStorage.getItem("inv")) ?? 0)
 
 // Traer datos de Storage
 for(let i=0; i<localStorage.length; i++) {
@@ -17,8 +17,6 @@ for(let i=0; i<localStorage.length; i++) {
         importar_datos(gastos, clave)
     }
 }
-n = parseInt(localStorage.getItem("n"))
-inv = parseFloat(localStorage.getItem("inv"))
 
 // Clase
 class item {
